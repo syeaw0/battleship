@@ -1,4 +1,4 @@
-
+# A change by Sam
 """init ships using shipBuilder"""
 class ShipBuilder:
     def __init__(self, name, length):
