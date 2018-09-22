@@ -18,9 +18,11 @@ class Ship():
 ##########################################
 class ShipSet():
 	
+	# ATTRIBUTES
+	self.ships = []
+	
 	def __init__(self, is_full):
 		
-		self.ships = []
 		if is_full:
 			self.fill_set()
 	
