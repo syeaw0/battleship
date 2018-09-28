@@ -1,10 +1,18 @@
 1. When the user clicks the link, the system shall download the executable
 2. When the user clicks the downloaded executable, the system will execute the file
-3. When the user clicks new game, the system will initialize a new game
-4. When the user selects a ship from the initial pool, the system will detract that ship from the pool
-5. When the user drags the ship to the field, the system will add it to the field
-6. When the user has dragged all ships to the field, the system will prompt the user to verify the selection and placement of ships
-7. When the user verifies the selection and placement of ships, the system will randomly determine who goes first (player or AI)
-8. When the user selects an enemy potion to fire at, the system will determine if it is a hit or a miss and check if all ships are sunk
-9. When the user has finished is his turn (after firing at enemy position), the system will the AI to take its turn and check if all ships are sunk
-10. When the user has either won or lost, the system declars the winner and goes back to main menu
+3. When the user opens the file, the system will initialize the GUI and load the main menu
+4. When the user clicks "help" on the main menu, the system will open the help menu on the GUI
+5. When the user clicks "exit" on the main menu, the system will close the GUI and the executable
+6. When the user clicks "new game" on the main menu, the system will initialize a new game and load the start up screen on the GUI
+7. When the user sees the start up menu, the system will initialize a ship set with 5 ship pieces and place them in a pool
+8. When the user sees the start up menu, the system will also initialize two matrix for the board, one for the user, one for the AI
+9. When the user selects a ship from the initial pool, the system will detract that ship from the pool
+10. When the user drags the ship to the user field, the system will add it to the user field
+11. When the user has dragged all ships to the field, the system will prompt the user to verify the selection and placement of ships
+12. If the user cancels their selection and placement of ships, the system will reset the start up menu. 
+13. When the user verifies the selection and placement of ships, the system will randomly determine who goes first (player or AI)
+14. When the user selects an enemy position to fire at, the system will determine if it is a hit or a miss and check if all ships are sunk
+15. When the user fires at a location, the system will mark the location so the user can't fire at the location again
+16. When the user has finished his turn (after firing at enemy position), the system will the AI to take its turn and check if all ships are sunk
+17. When the user or AI sinks a ship, the system will open a video and display it.
+18. When the user has either won or lost, the system declars the winner and goes back to main menu
