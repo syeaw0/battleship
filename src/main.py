@@ -10,14 +10,15 @@ import cmd
 class Console(cmd.Cmd):
 
     # ATTRIBUTES
-    player = player_module.Player()
-    ai = player_module.Player()
+    player = None
+    ai = None
 
     def do_new(self, args):
         """new - Starts a new game and initializes the player and ai"""
         print("...Starting a new game\n")
-        self.prompt = "<player_info>\n" + "> "      # (PLACEHOLDER) Change the prompt to match player info
-        # TO BE IMPLEMENTED: self.__update_prompt()
+        self.player = player_module.Player()
+        self.ai = player_module.Player()
+        self.prompt = str(self.player) + "\n> "
 
         # Place ships for AI
         # TO BE IMPLEMENTED: self.__place_ai_ships_temp()
@@ -27,14 +28,19 @@ class Console(cmd.Cmd):
         commands = self.__parse_input(args)         # Parse the arguements in to a list
 
         # If there are not exactly three arguments provided, show an error
-        if len[commands] == 3:
+        if len(commands) == 3:
 
             # Place the ship
             ship_name = commands[0]
             coordinate = commands[1]
             orientation = commands[2]
-            # TO BE IMPLEMENTED: player.place_ship(ship_name, coordinate, orientation)
-            
+            success = self.player.place_ship(ship_name, coordinate, orientation)
+            if success:
+                print(ship_name + " has been placed at " + coordinate)
+            else:
+                print(ship_name + " failed to be placed")
+
+            self.prompt = str(self.player) + "\n> "
         else:
             print("*** invalid number of arguments. See 'help place'")
 
@@ -68,9 +74,6 @@ class Console(cmd.Cmd):
         elif args[len(args) - 1] != "\"":
             result.append(argument)
         return result
-
-    def __updated_prompt(self):
-        self.prompt = str(player) + "\n" + "> "
 
     # TEMPORARY!
     def __place_ai_ships_temp(self):
