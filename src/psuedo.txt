@@ -1,0 +1,32 @@
+main
+
+startGUI - load gui to screen (not necessary in console version)
+startGame - initialize players and board values
+    createPlayer
+    createAI
+    selectShipLocation
+        selectOrientation
+        selectStartPoint
+        checkValidLocations
+        initLocations
+    createShipSets
+        initPlayerShips - orientation enum and start location
+        initAIShips
+startAnimation
+turnLoop
+    playerTurn
+    updateBoard
+    checkWin
+    aiTurn
+    updateBoard
+    checkWin
+
+
+----------------------------------------
+
+
+createPlayer()
+
+createAI()
+
+selectShipLocation()
