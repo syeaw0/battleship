@@ -22,15 +22,35 @@ class Player:
         self.__opponent_field = Field(False)  # Initializes the enemy's field, with fog of war on
 
     # PUBLIC METHODS
-    # add_ship - Adds a ship to the player's field
-    def add_ship(self, ship, x_coordinate, y_coordinate, orientation):
-        # TODO
-        pass
+    # place_ship - Adds a ship to the player's field
+    def place_ship(self, ship_name, coordinate, orientation):
+        # Check if ship is in ship set
+        if not self.__ships.ship_exists(ship_name):
+            return False   
+
+        # Pop that ship from self.__ships
+        ship = self.__ships.pop(ship_name)
+    
+        # Place it into the field at the right coordinate
+        print("TODO - player.place_ship")    
+            
+        return True
 
     # attack - Attacks the enemy's field
     def attack(self, x_coordinate, y_coordinate):
         # TODO
         pass
+
+    # OVERRIDEN METHODS
+    # __str__ - convert player object into a string
+    def __str__(self):
+        output = "ENEMY FIELD\n"
+        output = output + str(self.__opponent_field) + "\n\n"
+        output = output + "MY FIELD\n"
+        output = output + str(self.__my_field) + "\n"
+        output = output + "SHIPS TO PLACE\n"
+        output = output + str(self.__ships)
+        return output
 
 
 ####################################################
@@ -46,6 +66,11 @@ class Field:
         # ATTRIBUTES
         self.__fog_of_war = fog_of_war  # Sets the fog of war to on or off
         self.__matrix = self.__init_matrix()  # Initializes the matrix
+
+    # PUBLIC METHODS
+    # place a ship into field
+    def place(self, ship, coordinate):
+        print("TODO")
 
     # PRIVATE METHODS
     # init_matrix - returns an initialized matrix. For internal class use only
@@ -68,7 +93,7 @@ class Field:
         for x in self.__matrix:
             output = output + "|" + str(x) + "\n"
             output = output + "------------------------------" + "\n"
-            return output
+        return output
 
     # MAIN
     if __name__ == "__main__":

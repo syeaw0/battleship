@@ -1,4 +1,5 @@
-
+# IMPORTS
+import enum
 
 ##########################################
 # CLASS Ship
@@ -13,9 +14,13 @@ class Ship:
     def __init__(self, name, length):
         self.name = name
         self.length = length
-        self.orientation = ""
+        self.orientation = Orientation.VERTICAL
 
-    # def got_hit(self, location):
+    def set_orientation(self, orientation):
+        self.orientation = orientation
+
+    def get_name(self):
+        return self.name
 
 
 ##########################################
@@ -31,6 +36,7 @@ class ShipSet:
         if is_full:
             self.fill_set()
 
+    # PUBLIC METHODS
     def fill_set(self):
         self.ships = [
             Ship("Carrier", 5),
@@ -40,5 +46,33 @@ class ShipSet:
             Ship("Patrol Boat", 2)
         ]
 
+    def ship_exists(self, ship_name):
+        exists = False
+        for ship in self.ships:
+            if ship.get_name() == ship_name:
+                exists = True
+        return exists
+    
+    def pop(self, ship_name):
+        result = None
+        for ship in self.ships:
+            if ship.get_name() == ship_name:
+                index = self.ships.index(ship)
+                result = self.ships.pop(index)
+                break
+        print("ShipSet:pop:result = " + str(result))
+        return result
+        
     # def get_ships(self):
+
+    # OVERRIDEN METHODS
+    def __str__(self):
+        output = ""
+        for ship in self.ships:
+            output = output + ship.get_name() + "\n"
+        return output
+
+class Orientation(enum.Enum):
+    VERTICAL = 1
+    HORIZONTAL = 2
 
