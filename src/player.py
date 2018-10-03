@@ -32,7 +32,7 @@ class Player:
         ship = self.__ships.pop(ship_name)
     
         # Place it into the field at the right coordinate
-        print("TODO - player.place_ship")    
+        self.__my_field.place(ship, coordinate, orientation)
             
         return True
 
@@ -69,8 +69,47 @@ class Field:
 
     # PUBLIC METHODS
     # place a ship into field
-    def place(self, ship, coordinate):
-        print("TODO")
+    # convert coordinate to matrix format and place ship according to orientation
+    def place(self, ship, coordinate, orientation):
+        # TODO determine if end_point needs to be reset between placements
+
+        # prints all placement info
+        print("Placing ship at " + coordinate + " with orientation of " + orientation)
+
+        # convert Column from letter to number
+        matrixCol = ord(coordinate[0])-65
+        print(matrixCol)
+        matrixRow = int(coordinate[1]) - 1
+        print(matrixRow)
+
+        # TODO need to check orientation to determine placement algorithm
+        print(orientation)
+        if orientation is 2:
+            print("IM VERTICAL IF STATEMENT")
+
+        # determines endpoint for VERTICAL placement of ships, if > 10 it is out of bounds
+        # TODO add if VERTICAL
+        end_point = ship.length + int(matrixRow)
+        if end_point > 10:
+            print('{0} = OUT OF BOUNDS'.format(str(end_point)))
+
+        # determines endpoint for HORIZONTAL placement of ships, if > 10 it is out of bounds
+        # TODO add if HORIZONTAL
+        end_point = ship.length + int(matrixCol)
+        if end_point > 10:
+            print('{0} = OUT OF BOUNDS'.format(str(end_point)))
+
+        # TODO if out of bounds, don't actually place the ship    
+
+        # TODO places all of ship points based on length in a specific orientation VERT / HORIZ
+
+        # places 1 in the start point of ship placement
+        self.__matrix[matrixRow][int(matrixCol)] = 1
+
+
+
+
+
 
     # PRIVATE METHODS
     # init_matrix - returns an initialized matrix. For internal class use only
