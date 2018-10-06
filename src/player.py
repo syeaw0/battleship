@@ -71,7 +71,6 @@ class Field:
     # place a ship into field
     # convert coordinate to matrix format and place ship according to orientation
     def place(self, ship, coordinate, orientation):
-        # TODO determine if end_point needs to be reset between placements
 
         # prints all placement info
         print("Placing ship at " + coordinate + " with orientation of " + orientation)
@@ -83,6 +82,12 @@ class Field:
         print(matrixRow)
 
         # TODO need to check orientation to determine placement algorithm
+        if orientation is ship.Orientation.HORIZONTAL:
+
+        elif orientation is ship.Orientation.VERTICAL:
+
+        else:
+            print("*** Error - " + orientation + " is an invalid orientation (Please choose vertical/horizontal)")
         print(orientation)
         if orientation is 2:
             print("IM VERTICAL IF STATEMENT")
