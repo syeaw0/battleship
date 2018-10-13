@@ -3,7 +3,6 @@
 ###########
 import ship
 
-
 ####################################################
 # CLASS Player
 # --------------------------------------------------
@@ -26,15 +25,16 @@ class Player:
     def place_ship(self, ship_name, coordinate, orientation):
         # Check if ship is in ship set
         if not self.__ships.ship_exists(ship_name):
-            return False   
-
-        # Pop that ship from self.__ships
-        ship = self.__ships.pop(ship_name)
+            raise Exception("*** " + ship_name + " does not exist in ship placement pool")
+    
+        # Get the ship
+        ship = self.__ships.get(ship_name)
     
         # Place it into the field at the right coordinate
         self.__my_field.place(ship, coordinate, orientation)
-            
-        return True
+        
+        # Pop that ship from self.__ships
+        self.__ships.pop(ship_name)
 
     # attack - Attacks the enemy's field
     def attack(self, x_coordinate, y_coordinate):
@@ -70,52 +70,50 @@ class Field:
     # PUBLIC METHODS
     # place a ship into field
     # convert coordinate to matrix format and place ship according to orientation
-    def place(self, ship, coordinate, orientation):
+    def place(self, a_ship, coordinate, orientation):
 
         # prints all placement info
         print("Placing ship at " + coordinate + " with orientation of " + orientation)
 
         # convert Column from letter to number
-        matrixCol = ord(coordinate[0])-65
+        matrixCol = ord(coordinate[0].upper())-65
         print(matrixCol)
-        matrixRow = int(coordinate[1]) - 1
+        matrixRow = int(coordinate[1:]) - 1
         print(matrixRow)
 
-        # TODO need to check orientation to determine placement algorithm
-        if orientation is ship.Orientation.HORIZONTAL:
-
-        elif orientation is ship.Orientation.VERTICAL:
-
+        # Check orientation to determine placement algorithm
+        if orientation.lower() == "horizontal":
+            end_point = len(a_ship) + int(matrixCol)
+            if end_point > 10:
+                raise Exception("*** ship goes out of bounds")
+        elif orientation.lower() == "vertical":
+            end_point = len(a_ship) + int(matrixRow)
+            if end_point > 10:
+                raise Exception("*** ship goes out of bounds")
         else:
-            print("*** Error - " + orientation + " is an invalid orientation (Please choose vertical/horizontal)")
-        print(orientation)
-        if orientation is 2:
-            print("IM VERTICAL IF STATEMENT")
+            raise Exception("*** invalid orientation")
+                
+        # Check to see if it conflicts with a previously placed ship
+        if orientation.lower() == "horizontal":
+            for index in range(matrixCol, matrixCol + len(a_ship)):
+                if self.__matrix[matrixRow][index] == 1:
+                    raise Exception("*** placement conflicts with previously placed ship")
+        elif orientation.lower() == "vertical":
+            for index in range(matrixRow, matrixRow + len(a_ship)):
+                print(str(self.__matrix[index][matrixCol]))
+                if self.__matrix[index][matrixCol] == 1:
+                    raise Exception("*** placement conflicts with previously placed ship")
 
-        # determines endpoint for VERTICAL placement of ships, if > 10 it is out of bounds
-        # TODO add if VERTICAL
-        end_point = ship.length + int(matrixRow)
-        if end_point > 10:
-            print('{0} = OUT OF BOUNDS'.format(str(end_point)))
-
-        # determines endpoint for HORIZONTAL placement of ships, if > 10 it is out of bounds
-        # TODO add if HORIZONTAL
-        end_point = ship.length + int(matrixCol)
-        if end_point > 10:
-            print('{0} = OUT OF BOUNDS'.format(str(end_point)))
-
-        # TODO if out of bounds, don't actually place the ship    
-
-        # TODO places all of ship points based on length in a specific orientation VERT / HORIZ
-
-        # places 1 in the start point of ship placement
-        self.__matrix[matrixRow][int(matrixCol)] = 1
-
-
-
-
-
-
+        # Places all of ship points based on length in a specific orientation VERT / HORIZ
+        if orientation.lower() == "horizontal":
+            for index in range(0, len(a_ship)):
+                self.__matrix[matrixRow][matrixCol] = 1
+                matrixCol = matrixCol + 1
+        else:
+            for index in range(0, len(a_ship)):
+                self.__matrix[matrixRow][matrixCol] = 1
+                matrixRow = matrixRow + 1
+        
     # PRIVATE METHODS
     # init_matrix - returns an initialized matrix. For internal class use only
     def __init_matrix(self):
